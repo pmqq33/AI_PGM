@@ -1,0 +1,33 @@
+LLM이해 딥러닝 이해
+
+파인만 공부법 - 에빙하우스 망각곡선에 근거하여,
+망각곡선 복습구간마다 복습진행 누군가를 가장 쉽게 가르치는 수준까지
+
+python 파일명.py > 파이썬파일 불러오기
+
+cd : change directory > 디렉토리(폴더) 변경 명령어
+
+alt+d > ctrl+c > cd ctrl+v : 디렉토리 위치 복사 붙여넣기 디렉토리 위치 이동
+
+https://github.com/
+https://www.python.org/
+https://notebooklm.google.com/
+https://wikidocs.net/
+https://www.tiobe.com/tiobe-index/
+
+인터프리터 - 통역기
+파이썬
+
+컴파일러 - 번역기
+기계어로 전체 번역 후 전체 출력
+
+자격증
+
+컴활 2급
+오픽 im3
+ADsP(데이터분석준전문가)
+0706~0710 원서접수
+SQLD
+0720~0724 원서접수
+
+통합개발환경(IDE)
