@@ -1,185 +1,192 @@
-
-# 🐍 Python - 리스트 (List)
+# 🐍 Python 기초 학습 정리
 
 > 작성일: 2026-06-26  
-> 태그: `#Python` `#List` `#자료구조`
+> 태그: `#Python` `#print` `#문자열포맷팅` `#input` `#list`
 
 ---
 
-## 📌 리스트란?
+## 1. print() 함수와 이스케이프 문자
 
-리스트(List)는 여러 개의 값을 **순서대로** 저장할 수 있는 자료구조입니다.  
-파이썬에서 가장 많이 사용되는 자료형 중 하나로, **수정(mutable)이 가능**합니다.
+`print()`는 화면에 값을 출력하는 함수입니다.  
+문자열은 `"큰따옴표"` 또는 `'작은따옴표'` 모두 사용 가능합니다.
 
 ```python
-fruits = ["사과", "바나나", "체리"]
-numbers = [1, 2, 3, 4, 5]
-mixed = [1, "hello", 3.14, True]  # 서로 다른 타입도 담을 수 있음
+print("Hello python")
+print('Hello python')
+```
+
+`\n`은 **줄바꿈** 이스케이프 문자입니다.  
+`"""삼중따옴표"""` 안에서도 줄바꿈을 표현할 수 있습니다.
+
+```python
+# \n으로 줄바꿈
+print("고구마\n감자\n토마토\n양파\n마늘\n대파")
+
+# 삼중따옴표 + \n 혼합
+print("""H\ne\nl\nl\no""")
+```
+
+**출력 결과:**
+```
+고구마
+감자
+토마토
+양파
+마늘
+대파
 ```
 
 ---
 
-## 🔧 리스트 생성
+## 2. 문자열 포맷팅 - % 방식
+
+`%d`, `%f`, `%s` 등의 **포맷 지정자**로 변수를 문자열에 삽입합니다.
+
+| 지정자 | 의미 |
+|--------|------|
+| `%d` | 정수 (int) |
+| `%f` | 실수 (float) |
+| `%s` | 문자열 (string) |
+| `%.2f` | 소수점 2자리까지 표시 |
 
 ```python
-# 빈 리스트 생성
-empty1 = []
-empty2 = list()
+a = 3
+str1 = "Sample python string"
 
-# 값이 있는 리스트
-nums = [10, 20, 30]
+print("I eat %d apples." % a)
+# I eat 3 apples.
 
-# list()로 변환
-chars = list("hello")  # ['h', 'e', 'l', 'l', 'o']
+print("I eat %d apples and %f oranges." % ((1+2), 3.141592))
+# I eat 3 apples and 3.141592 oranges.
+
+print("I eat %d apples and %.2f oranges." % ((1+2), 3.141592))
+# I eat 3 apples and 3.14 oranges.
+
+print("example string : %s" % str1)
+# example string : Sample python string
+```
+
+> 💡 **포인트:** 변수가 2개 이상이면 `% (값1, 값2)` 처럼 **괄호로 묶어서** 전달합니다.
+
+---
+
+## 3. 문자열 포맷팅 - 3가지 방법 비교
+
+같은 출력을 세 가지 방법으로 표현할 수 있습니다.
+
+```python
+# 방법 1: f-string (가장 권장, Python 3.6+)
+print(f"I eat {3} apples and {5} oranges.")
+
+# 방법 2: % 포맷팅
+print("I eat %d apples and %d oranges." % (3, 5))
+
+# 방법 3: .format() 메서드
+print("I eat {0} apples and {1} oranges.".format(3, 5))
+```
+
+**세 가지 모두 동일한 출력:**
+```
+I eat 3 apples and 5 oranges.
+```
+
+> 💡 **권장:** `f-string`이 가장 읽기 쉽고 간결해서 현재 가장 많이 사용됩니다.
+
+---
+
+## 4. input() 함수 - 사용자 입력 받기
+
+`input()`은 키보드로부터 값을 입력받는 함수입니다.  
+입력값은 기본적으로 **문자열(str)** 이므로, 숫자로 사용하려면 `int()` 또는 `float()`으로 변환해야 합니다.
+
+```python
+a = int(input("Enter first number:"))
+b = int(input("Enter second number:"))
+
+print(f"You entered: {a} and {b}")
+print(f"a + b = {a + b}")
+print(f"a - b = {a - b}")
+print(f"a * b = {a * b}")
+print(f"a / b = {a / b}")
+```
+
+**실행 예시 (입력: 10, 3):**
+```
+You entered: 10 and 3
+a + b = 13
+a - b = 7
+a * b = 30
+a / b = 3.3333333333333335
 ```
 
 ---
 
-## 📐 인덱싱과 슬라이싱
+## 5. 리스트 활용 - input() + list
+
+`input()`으로 받은 값들을 **리스트에 저장**하고 `sum()`, `max()`, `min()` 등으로 분석합니다.
+
+### 5-1. 숫자 5개 입력 → 통계 계산
 
 ```python
-fruits = ["사과", "바나나", "체리", "딸기", "포도"]
+num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+num3 = int(input("Enter third number: "))
+num4 = int(input("Enter fourth number: "))
+num5 = int(input("Enter fifth number: "))
 
-# 인덱싱 (0부터 시작)
-print(fruits[0])   # 사과
-print(fruits[-1])  # 포도 (뒤에서 첫 번째)
+numlist = [num1, num2, num3, num4, num5]
 
-# 슬라이싱 [시작:끝:간격]
-print(fruits[1:3])   # ['바나나', '체리']
-print(fruits[:2])    # ['사과', '바나나']
-print(fruits[2:])    # ['체리', '딸기', '포도']
-print(fruits[::2])   # ['사과', '체리', '포도'] (2칸씩)
-print(fruits[::-1])  # 리스트 역순
+print(f"합: {sum(numlist)}")
+print(f"평균: {sum(numlist)/len(numlist)}")
+print(f"최대값: {max(numlist)}")
+print(f"최소값: {min(numlist)}")
 ```
 
----
+**실행 예시 (입력: 10, 20, 30, 40, 50):**
+```
+합: 150
+평균: 30.0
+최대값: 50
+최소값: 10
+```
 
-## ✏️ 리스트 수정
+### 5-2. append()로 리스트에 값 추가
 
 ```python
-nums = [1, 2, 3]
+b = []
 
-# 값 변경
-nums[0] = 10        # [10, 2, 3]
+list1 = input("Enter first fruit: ")
+b.append(list1)
+list2 = input("Enter second fruit: ")
+b.append(list2)
+list3 = input("Enter third fruit: ")
+b.append(list3)
 
-# 슬라이싱으로 여러 값 변경
-nums[1:3] = [20, 30]  # [10, 20, 30]
+print(f"첫 번째 과일: {b[0]}")
+print(f"마지막 과일: {b[-1]}")
 ```
 
----
-
-## 🛠️ 주요 메서드
-
-| 메서드 | 설명 | 예시 |
-|--------|------|------|
-| `append(x)` | 끝에 요소 추가 | `lst.append(5)` |
-| `insert(i, x)` | 인덱스 i에 요소 삽입 | `lst.insert(1, 99)` |
-| `extend(iterable)` | 다른 리스트 이어붙이기 | `lst.extend([6, 7])` |
-| `remove(x)` | 첫 번째 x 제거 | `lst.remove(3)` |
-| `pop(i)` | 인덱스 i 요소 제거 & 반환 | `lst.pop(0)` |
-| `index(x)` | x의 인덱스 반환 | `lst.index(5)` |
-| `count(x)` | x의 개수 반환 | `lst.count(2)` |
-| `sort()` | 오름차순 정렬 (원본 변경) | `lst.sort()` |
-| `reverse()` | 역순 정렬 (원본 변경) | `lst.reverse()` |
-| `copy()` | 얕은 복사 | `lst2 = lst.copy()` |
-| `clear()` | 모든 요소 제거 | `lst.clear()` |
-
-```python
-lst = [3, 1, 4, 1, 5, 9, 2]
-
-lst.append(6)          # [3, 1, 4, 1, 5, 9, 2, 6]
-lst.sort()             # [1, 1, 2, 3, 4, 5, 6, 9]
-lst.sort(reverse=True) # [9, 6, 5, 4, 3, 2, 1, 1]
-print(lst.count(1))    # 2
+**실행 예시 (입력: apple, banana, cherry):**
+```
+첫 번째 과일: apple
+마지막 과일: cherry
 ```
 
----
-
-## 🔁 리스트 순회
-
-```python
-colors = ["red", "green", "blue"]
-
-# 기본 for문
-for color in colors:
-    print(color)
-
-# 인덱스와 함께 순회
-for i, color in enumerate(colors):
-    print(f"{i}: {color}")
-
-# while문으로 순회
-i = 0
-while i < len(colors):
-    print(colors[i])
-    i += 1
-```
-
----
-
-## ⚡ 리스트 컴프리헨션
-
-반복문과 조건문을 한 줄로 간결하게 표현하는 문법입니다.
-
-```python
-# 기본 형태: [표현식 for 변수 in 반복가능객체]
-squares = [x**2 for x in range(1, 6)]
-# [1, 4, 9, 16, 25]
-
-# 조건 필터링
-evens = [x for x in range(10) if x % 2 == 0]
-# [0, 2, 4, 6, 8]
-
-# 중첩 반복
-pairs = [(x, y) for x in [1, 2] for y in [3, 4]]
-# [(1, 3), (1, 4), (2, 3), (2, 4)]
-```
-
----
-
-## ⚠️ 얕은 복사 vs 깊은 복사
-
-```python
-import copy
-
-original = [1, 2, [3, 4]]
-
-# 얕은 복사 - 중첩 리스트는 참조를 공유함
-shallow = original.copy()
-shallow[2][0] = 99
-print(original)  # [1, 2, [99, 4]] ← 영향받음!
-
-# 깊은 복사 - 완전히 독립적인 복사본
-deep = copy.deepcopy(original)
-deep[2][0] = 0
-print(original)  # [1, 2, [99, 4]] ← 영향 없음
-```
-
----
-
-## 🧩 유용한 내장 함수
-
-```python
-nums = [3, 1, 4, 1, 5, 9]
-
-len(nums)        # 6 - 길이
-sum(nums)        # 23 - 합계
-min(nums)        # 1 - 최솟값
-max(nums)        # 9 - 최댓값
-sorted(nums)     # [1, 1, 3, 4, 5, 9] - 새 정렬 리스트 반환 (원본 유지)
-list(reversed(nums))  # [9, 5, 1, 4, 1, 3] - 역순 새 리스트
-```
+> 💡 **포인트:** `append()`로 빈 리스트에 값을 하나씩 추가할 수 있습니다.  
+> `b[-1]`은 리스트의 **마지막 요소**를 가리킵니다.
 
 ---
 
 ## 💡 핵심 정리
 
-- 리스트는 **순서 있음**, **중복 허용**, **수정 가능**
-- 인덱스는 **0**부터 시작, 음수 인덱스로 뒤에서 접근 가능
-- `sort()`는 원본을 변경, `sorted()`는 새 리스트를 반환
-- 중첩 리스트 복사 시 `copy.deepcopy()` 사용 권장
-- **리스트 컴프리헨션**으로 코드를 간결하게 작성 가능
+| 개념 | 핵심 내용 |
+|------|-----------|
+| `print()` | `"` 또는 `'` 모두 사용 가능, `\n`으로 줄바꿈 |
+| 문자열 포맷팅 | f-string > .format() > % 순으로 권장 |
+| `input()` | 반환값은 항상 `str` → 숫자는 `int()` 변환 필요 |
+| 리스트 + 내장함수 | `sum()`, `len()`, `max()`, `min()` 활용 |
+| `append()` | 빈 리스트에 값을 순서대로 추가 |
 
 ---
 
-*📚 다음 학습 예정: 튜플(Tuple), 딕셔너리(Dictionary)*
+*📚 다음 학습 예정: 조건문(if), 반복문(for, while)*
