@@ -1,192 +1,399 @@
-# 🐍 Python 기초 학습 정리
+# Python 기초 정리 (강의노트)
 
-> 작성일: 2026-06-26  
-> 태그: `#Python` `#print` `#문자열포맷팅` `#input` `#list`
+> 교재 + 오늘 실습 코드 + 강의 메모를 통합하여 정리한 내용입니다.
 
 ---
 
-## 1. print() 함수와 이스케이프 문자
+# 1. 수식(Expression)의 구성 요소
 
-`print()`는 화면에 값을 출력하는 함수입니다.  
-문자열은 `"큰따옴표"` 또는 `'작은따옴표'` 모두 사용 가능합니다.
-
-```python
-print("Hello python")
-print('Hello python')
-```
-
-`\n`은 **줄바꿈** 이스케이프 문자입니다.  
-`"""삼중따옴표"""` 안에서도 줄바꿈을 표현할 수 있습니다.
+파이썬의 대부분의 코드는 **수식을 계산하여 변수에 저장**하는 형태이다.
 
 ```python
-# \n으로 줄바꿈
-print("고구마\n감자\n토마토\n양파\n마늘\n대파")
-
-# 삼중따옴표 + \n 혼합
-print("""H\ne\nl\nl\no""")
+변수 = 수식
+variable = expression
 ```
 
-**출력 결과:**
-```
-고구마
-감자
-토마토
-양파
-마늘
-대파
+수식(Expression)은 다음 4가지 요소로 구성된다.
+
+| 구성요소          | 설명           | 예시                        |
+| ------------- | ------------ | ------------------------- |
+| Literal(값)    | 직접 사용하는 값    | `10`, `"Python"`          |
+| Variable(변수)  | 데이터를 저장하는 공간 | `a`, `score`              |
+| Operator(연산자) | 값을 계산        | `+`, `-`, `*`, `/`        |
+| Function(함수)  | 특정 기능 수행     | `sum()`, `max()`, `len()` |
+
+예제
+
+```python
+a = 10          # Literal
+b = a           # Variable
+c = a + b       # Operator
+d = sum([a,b])  # Function
 ```
 
 ---
 
-## 2. 문자열 포맷팅 - % 방식
+# 2. 자료형(Container)
 
-`%d`, `%f`, `%s` 등의 **포맷 지정자**로 변수를 문자열에 삽입합니다.
-
-| 지정자 | 의미 |
-|--------|------|
-| `%d` | 정수 (int) |
-| `%f` | 실수 (float) |
-| `%s` | 문자열 (string) |
-| `%.2f` | 소수점 2자리까지 표시 |
+여러 개의 데이터를 저장하는 자료형이다.
 
 ```python
-a = 3
-str1 = "Sample python string"
-
-print("I eat %d apples." % a)
-# I eat 3 apples.
-
-print("I eat %d apples and %f oranges." % ((1+2), 3.141592))
-# I eat 3 apples and 3.141592 oranges.
-
-print("I eat %d apples and %.2f oranges." % ((1+2), 3.141592))
-# I eat 3 apples and 3.14 oranges.
-
-print("example string : %s" % str1)
-# example string : Sample python string
+list
+tuple
+set
+dictionary
 ```
 
-> 💡 **포인트:** 변수가 2개 이상이면 `% (값1, 값2)` 처럼 **괄호로 묶어서** 전달합니다.
-
----
-
-## 3. 문자열 포맷팅 - 3가지 방법 비교
-
-같은 출력을 세 가지 방법으로 표현할 수 있습니다.
+예제
 
 ```python
-# 방법 1: f-string (가장 권장, Python 3.6+)
-print(f"I eat {3} apples and {5} oranges.")
+numbers = [10,20,30]
 
-# 방법 2: % 포맷팅
-print("I eat %d apples and %d oranges." % (3, 5))
+student = ("홍길동",20)
 
-# 방법 3: .format() 메서드
-print("I eat {0} apples and {1} oranges.".format(3, 5))
-```
+fruit = {"apple","banana","orange"}
 
-**세 가지 모두 동일한 출력:**
-```
-I eat 3 apples and 5 oranges.
-```
-
-> 💡 **권장:** `f-string`이 가장 읽기 쉽고 간결해서 현재 가장 많이 사용됩니다.
-
----
-
-## 4. input() 함수 - 사용자 입력 받기
-
-`input()`은 키보드로부터 값을 입력받는 함수입니다.  
-입력값은 기본적으로 **문자열(str)** 이므로, 숫자로 사용하려면 `int()` 또는 `float()`으로 변환해야 합니다.
-
-```python
-a = int(input("Enter first number:"))
-b = int(input("Enter second number:"))
-
-print(f"You entered: {a} and {b}")
-print(f"a + b = {a + b}")
-print(f"a - b = {a - b}")
-print(f"a * b = {a * b}")
-print(f"a / b = {a / b}")
-```
-
-**실행 예시 (입력: 10, 3):**
-```
-You entered: 10 and 3
-a + b = 13
-a - b = 7
-a * b = 30
-a / b = 3.3333333333333335
+person = {
+    "이름":"홍길동",
+    "나이":20
+}
 ```
 
 ---
 
-## 5. 리스트 활용 - input() + list
+# 3. 입력(Input)
 
-`input()`으로 받은 값들을 **리스트에 저장**하고 `sum()`, `max()`, `min()` 등으로 분석합니다.
-
-### 5-1. 숫자 5개 입력 → 통계 계산
+키보드에서 데이터를 입력받는 함수이다.
 
 ```python
-num1 = int(input("Enter first number: "))
-num2 = int(input("Enter second number: "))
-num3 = int(input("Enter third number: "))
-num4 = int(input("Enter fourth number: "))
-num5 = int(input("Enter fifth number: "))
-
-numlist = [num1, num2, num3, num4, num5]
-
-print(f"합: {sum(numlist)}")
-print(f"평균: {sum(numlist)/len(numlist)}")
-print(f"최대값: {max(numlist)}")
-print(f"최소값: {min(numlist)}")
+a = input()
 ```
 
-**실행 예시 (입력: 10, 20, 30, 40, 50):**
-```
-합: 150
-평균: 30.0
-최대값: 50
-최소값: 10
-```
-
-### 5-2. append()로 리스트에 값 추가
+숫자를 입력받을 때는 형변환을 한다.
 
 ```python
-b = []
-
-list1 = input("Enter first fruit: ")
-b.append(list1)
-list2 = input("Enter second fruit: ")
-b.append(list2)
-list3 = input("Enter third fruit: ")
-b.append(list3)
-
-print(f"첫 번째 과일: {b[0]}")
-print(f"마지막 과일: {b[-1]}")
+a = int(input("첫 번째 숫자 : "))
+b = int(input("두 번째 숫자 : "))
 ```
 
-**실행 예시 (입력: apple, banana, cherry):**
-```
-첫 번째 과일: apple
-마지막 과일: cherry
-```
-
-> 💡 **포인트:** `append()`로 빈 리스트에 값을 하나씩 추가할 수 있습니다.  
-> `b[-1]`은 리스트의 **마지막 요소**를 가리킵니다.
+실습에서는 입력받은 두 정수의 사칙연산을 출력하였다.
 
 ---
 
-## 💡 핵심 정리
+# 4. 출력(Output)
 
-| 개념 | 핵심 내용 |
-|------|-----------|
-| `print()` | `"` 또는 `'` 모두 사용 가능, `\n`으로 줄바꿈 |
-| 문자열 포맷팅 | f-string > .format() > % 순으로 권장 |
-| `input()` | 반환값은 항상 `str` → 숫자는 `int()` 변환 필요 |
-| 리스트 + 내장함수 | `sum()`, `len()`, `max()`, `min()` 활용 |
-| `append()` | 빈 리스트에 값을 순서대로 추가 |
+출력 함수
+
+```python
+print()
+```
+
+f-string
+
+```python
+print(f"a + b = {a+b}")
+print(f"a * b = {a*b}")
+```
 
 ---
 
-*📚 다음 학습 예정: 조건문(if), 반복문(for, while)*
+# 5. 산술연산자
+
+| 연산자 | 설명  |
+| --- | --- |
+| +   | 더하기 |
+| -   | 빼기  |
+| *   | 곱하기 |
+| /   | 나누기 |
+| //  | 몫   |
+| %   | 나머지 |
+| **  | 제곱  |
+
+예제
+
+```python
+a+b
+a-b
+a*b
+a/b
+a//b
+a%b
+a**b
+```
+
+---
+
+# 6. 리스트(List)
+
+리스트 생성
+
+```python
+numbers = [10,20,30,40,50]
+```
+
+합계
+
+```python
+sum(numbers)
+```
+
+평균
+
+```python
+sum(numbers)/len(numbers)
+```
+
+최대값
+
+```python
+max(numbers)
+```
+
+최소값
+
+```python
+min(numbers)
+```
+
+---
+
+# 7. 리스트 인덱스(Index)
+
+첫 번째 요소
+
+```python
+numbers[0]
+```
+
+마지막 요소
+
+```python
+numbers[-1]
+```
+
+예제
+
+```python
+fruit = ["사과","바나나","포도"]
+
+print(fruit[0])
+print(fruit[-1])
+```
+
+---
+
+# 8. Dictionary
+
+Key와 Value 형태로 데이터를 저장한다.
+
+생성
+
+```python
+person = {
+    "이름":"홍길동",
+    "나이":20,
+    "학과":"컴퓨터공학과"
+}
+```
+
+접근
+
+```python
+print(person["이름"])
+print(person["나이"])
+```
+
+---
+
+# 9. Boolean
+
+논리형(True / False)
+
+```python
+True
+False
+```
+
+예제
+
+```python
+a = True
+b = False
+
+a &= b
+
+print(a)
+```
+
+---
+
+# 10. 조건문(if)
+
+기본 문법
+
+```python
+if 조건식:
+    실행문
+elif 조건식:
+    실행문
+else:
+    실행문
+```
+
+예제
+
+```python
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+else:
+    print("F")
+```
+
+---
+
+# 11. 오늘 실습
+
+## 실습 1
+
+두 개의 정수를 입력받아
+
+* 덧셈
+* 뺄셈
+* 곱셈
+* 나눗셈
+
+출력하기
+
+---
+
+## 실습 2
+
+정수 5개를 입력받아
+
+* 합계
+* 평균
+* 최대값
+* 최소값
+
+출력하기
+
+---
+
+## 실습 3
+
+과일 이름을 입력받아
+
+* 첫 번째 과일
+* 마지막 과일
+
+출력하기
+
+---
+
+# 추가 정리 (강의 메모)
+
+> 아래 내용은 위 내용과 중복되지 않는 메모만 정리한 것이다.
+
+---
+
+# 데이터 → 정보 → 지식
+
+요리사 비유
+
+```
+재료(Input Data)
+
+↓
+
+요리(Process)
+
+↓
+
+완성된 음식(Output Information)
+
+↓
+
+Knowledge
+```
+
+* **Data** : 원재료
+* **Process** : 데이터를 가공하는 과정
+* **Information** : 처리 결과
+* **Knowledge** : 결과를 분석하여 다음 행동을 결정하는 것
+
+예)
+
+> "이 음식은 간이 부족하네. 다음에는 소금을 조금 더 넣어야겠다."
+
+즉, **정보를 활용하여 판단하는 단계가 Knowledge**이다.
+
+---
+
+# 연산자 우선순위
+
+```
+1. **
+2. 단항연산 (+ - ~)
+3. * / // %
+4. + -
+5. << >>
+6. &
+7. ^
+8. |
+9. 비교연산
+10. not
+11. and
+12. or
+13. 대입연산
+```
+
+---
+
+# 제어문(Control Statement)
+
+프로그램의 실행 순서를 제어하는 문장이다.
+
+## 선택문
+
+```python
+if
+match-case
+```
+
+## 반복문
+
+```python
+for
+while
+```
+
+> Python에는 `do-while` 문이 존재하지 않는다.
+
+## 반복 제어문
+
+```python
+break
+continue
+```
+
+## 함수 종료
+
+```python
+return
+```
+
+---
+
+# 들여쓰기(Indentation)
+
+Python에서는 `{}` 대신 **들여쓰기**로 코드 블록을 구분한다.
+
+```python
+if score >= 90:
+    print("A")
+    print("Excellent")
+```
+
+들여쓰기가 맞지 않으면 `IndentationError`가 발생한다.
